@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-
-const forest = Color(0xFF12372A);
-const fern = Color(0xFF4F8A68);
-const mint = Color(0xFFE9F5DB);
-const paper = Color(0xFFFFFCF4);
-const coral = Color(0xFFE78161);
+import 'package:flutter_application_home/ui/theme.dart';
 
 class AuthShell extends StatelessWidget {
   const AuthShell({super.key, required this.child});
@@ -13,14 +8,19 @@ class AuthShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: paper,
+      backgroundColor: AppColors.paper,
       body: Stack(
         children: [
           const _AmbientBackground(),
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(24, 28, 24, 32),
+                padding: const EdgeInsets.fromLTRB(
+                  Space.lg,
+                  Space.xl,
+                  Space.lg,
+                  Space.xl,
+                ),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 460),
                   child: child,
@@ -45,17 +45,17 @@ class _AmbientBackground extends StatelessWidget {
           Positioned(
             top: -130,
             right: -90,
-            child: _OrganicShape(size: 290, color: mint),
+            child: _OrganicShape(size: 288, color: AppColors.mint),
           ),
           Positioned(
             bottom: -150,
             left: -120,
-            child: _OrganicShape(size: 330, color: const Color(0xFFF8E5C8)),
+            child: _OrganicShape(size: 328, color: AppColors.peach),
           ),
           Positioned(
             top: 120,
             left: -30,
-            child: _DotPattern(color: fern.withValues(alpha: .12)),
+            child: _DotPattern(color: AppColors.fern.withValues(alpha: .12)),
           ),
         ],
       ),
@@ -90,8 +90,8 @@ class _DotPattern extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    width: 110,
-    height: 110,
+    width: 112,
+    height: 112,
     child: CustomPaint(painter: _DotsPainter(color)),
   );
 }
@@ -103,9 +103,9 @@ class _DotsPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = color;
-    for (var x = 8.0; x < size.width; x += 18) {
-      for (var y = 8.0; y < size.height; y += 18) {
-        canvas.drawCircle(Offset(x, y), 2.2, paint);
+    for (var x = Space.sm; x < size.width; x += Space.lg) {
+      for (var y = Space.sm; y < size.height; y += Space.lg) {
+        canvas.drawCircle(Offset(x, y), Space.xs / 2, paint);
       }
     }
   }
@@ -138,45 +138,49 @@ class AuthHeader extends StatelessWidget {
               width: 42,
               height: 42,
               decoration: BoxDecoration(
-                color: forest,
-                borderRadius: BorderRadius.circular(14),
+                color: AppColors.forest,
+                borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.eco_rounded, color: mint, size: 24),
+              child: const Icon(
+                Icons.eco_rounded,
+                color: AppColors.mint,
+                size: Space.lg,
+              ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: Space.md),
             Text(
               'VERDE',
               style: theme.textTheme.labelLarge?.copyWith(
-                color: fern,
-                letterSpacing: 2.2,
+                color: AppColors.fern,
+                letterSpacing: 2,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 38),
+        const SizedBox(height: Space.xxl),
         Text(
           eyebrow.toUpperCase(),
           style: theme.textTheme.labelMedium?.copyWith(
-            color: coral,
-            letterSpacing: 1.5,
+            color: AppColors.coral,
+            letterSpacing: 1,
             fontWeight: FontWeight.w800,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: Space.sm),
         Text(
           title,
           style: theme.textTheme.headlineMedium?.copyWith(
-            color: forest,
+            color: AppColors.forest,
             fontWeight: FontWeight.w800,
             height: 1.05,
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: Space.md),
         Text(
           subtitle,
           style: theme.textTheme.bodyLarge?.copyWith(
-            color: const Color(0xFF668071),
-            height: 1.45,
+            color: AppColors.textMuted,
+            height: 1.5,
           ),
         ),
       ],
@@ -191,17 +195,17 @@ class AuthFormCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 28),
-      padding: const EdgeInsets.all(22),
+      margin: const EdgeInsets.only(top: Space.lg),
+      padding: const EdgeInsets.all(Space.lg),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: .84),
-        borderRadius: BorderRadius.circular(26),
+        borderRadius: BorderRadius.circular(Space.lg),
         border: Border.all(color: Colors.white),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x15203C2C),
-            blurRadius: 28,
-            offset: Offset(0, 14),
+            color: AppColors.shadow,
+            blurRadius: Space.lg,
+            offset: Offset(0, Space.sm),
           ),
         ],
       ),
@@ -230,9 +234,11 @@ class AuthPrimaryButton extends StatelessWidget {
       icon: Icon(icon, size: 20),
       label: Text(label),
       style: FilledButton.styleFrom(
-        backgroundColor: forest,
+        backgroundColor: AppColors.forest,
         foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Space.md),
+        ),
       ),
     ),
   );
@@ -244,15 +250,17 @@ class AuthDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
     children: [
-      const Expanded(child: Divider(color: Color(0xFFDCE8DA))),
+      const Expanded(child: Divider(color: AppColors.divider)),
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.symmetric(horizontal: Space.md),
         child: Text(
           'o continúa con',
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: fern),
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall?.copyWith(color: AppColors.fern),
         ),
       ),
-      const Expanded(child: Divider(color: Color(0xFFDCE8DA))),
+      const Expanded(child: Divider(color: AppColors.divider)),
     ],
   );
 }
@@ -265,13 +273,15 @@ class AuthSocialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => OutlinedButton.icon(
     onPressed: () {},
-    icon: Icon(icon, color: forest, size: 19),
+    icon: Icon(icon, color: AppColors.forest, size: 20),
     label: Text(label),
     style: OutlinedButton.styleFrom(
-      foregroundColor: forest,
-      side: const BorderSide(color: Color(0xFFD5E4D2)),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-      padding: const EdgeInsets.symmetric(vertical: 14),
+      foregroundColor: AppColors.forest,
+      side: const BorderSide(color: AppColors.outline),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Space.md),
+      ),
+      padding: const EdgeInsets.symmetric(vertical: Space.sm),
     ),
   );
 }
@@ -297,14 +307,17 @@ class AuthSwitch extends StatelessWidget {
           prompt,
           style: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: const Color(0xFF668071)),
+          ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(width: Space.md),
         TextButton(
           onPressed: onPressed,
           style: TextButton.styleFrom(
-            foregroundColor: fern,
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            foregroundColor: AppColors.fern,
+            padding: const EdgeInsets.symmetric(
+              horizontal: Space.sm,
+              vertical: Space.sm,
+            ),
           ),
           child: Text(action),
         ),

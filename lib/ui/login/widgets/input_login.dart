@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_home/ui/theme.dart';
 
 class Inputlogin extends StatelessWidget {
   const Inputlogin({
@@ -30,9 +31,8 @@ class Inputlogin extends StatelessWidget {
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       validator: validator,
-      style: const TextStyle(
-        color: Color(0xFF12372A),
-        fontSize: 15,
+      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+        color: AppColors.forest,
         fontWeight: FontWeight.w600,
       ),
       decoration: InputDecoration(
@@ -40,7 +40,7 @@ class Inputlogin extends StatelessWidget {
         hintText: hintText,
         prefixIcon: prefixIcon == null
             ? null
-            : Icon(prefixIcon, color: const Color(0xFF5C8768), size: 21),
+            : Icon(prefixIcon, color: AppColors.fern, size: Space.md),
       ),
     );
   }
